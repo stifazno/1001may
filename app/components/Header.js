@@ -23,21 +23,33 @@ const Header = () =>{
         setIsMenuOpen((prev) => !prev); // Переключение состояния видимости меню
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault(); // предотвращаем перезагрузку страницы
-        console.log('Username:', username);
-        console.log('Password:', password);
+
+        const res = await fetch('/api/login', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, password }),
+        });
+
+        const data = await res.json();
+
+        if (res.ok) {
+            console.log('Login successful:', data);
+        } else {
+            console.error('Login failed:', data.error);
+        }
+
         setShowLoginForm(false); // Закрываем форму после отправки
     };
-
-
-
 
     return(
         <header>
             <nav>
                 <div className="burgerMenu" onClick={toggleMenu}>
-                     ☰ Меню
+                    ☰ Меню
                 </div>
                 <div className={`menu ${isMenuOpen ? 'active' : ''}`}>
                     <Link href="#">Контакты</Link>
@@ -45,64 +57,45 @@ const Header = () =>{
                     <Link href="#">Адрес</Link>
                 </div>
             </nav>
-            <div >
+            <div>
                 <a href="#" onClick={handleLoginClick} id="enter" 
                 className={showLoginForm ? 'enter-active' : ''}
                 >Войти</a>
             </div>
 
-
-
-
             {showLoginForm && (
                 <div className="modal">
-                <div className="modal-content">
-                    <div className="login-box">
-                    <span className="close" onClick={handleClose}>&times;</span>
-                    <h2>Вход</h2>
-                    <form onSubmit={handleSubmit}>
-                        <div className="user-box">
-                        <input
-                            type="text"
-                            name="username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                            required
-                        />
-                        <label>Логин</label>
+                    <div className="modal-content">
+                        <div className="login-box">
+                            <span className="close" onClick={handleClose}>&times;</span>
+                            <h2>Вход</h2>
+                            <form onSubmit={handleSubmit}>
+                                <div className="user-box">
+                                    <input
+                                        type="text"
+                                        name="username"
+                                        value={username}
+                                        onChange={(e) => setUsername(e.target.value)}
+                                        required
+                                    />
+                                    <label>Логин</label>
+                                </div>
+                                <div className="user-box">
+                                    <input
+                                        type="password"
+                                        name="password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        required
+                                    />
+                                    <label>Пароль</label>
+                                </div>
+                                <button type="submit" className="login-button">Войти</button>
+                            </form>
                         </div>
-                        <div className="user-box">
-                        <input
-                            type="password"
-                            name="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            required
-                        />
-                        <label>Пароль</label>
-                        </div>
-                        <button type="submit" className="login-button">Войти</button>
-                    </form>
                     </div>
                 </div>
-                </div>
             )}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         </header>
     )
 }
