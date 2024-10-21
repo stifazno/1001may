@@ -1,0 +1,188 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+header {
+    background-color: #202c36;
+    color: white;
+    display: flex;
+    justify-content: space-between; /* Изменяем для лучшего выравнивания */
+    padding: 10px 20px; /* Увеличиваем отступы */
+  }
+
+  nav {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+  }
+
+  .burgerMenu {
+    cursor: pointer; /* Курсор при наведении */
+    font-size: 20px; /* Размер шрифта */
+  }
+
+  .menu {
+    display: flex; /* По умолчанию меню отображается горизонтально */
+    align-items: center; /* Выравнивание по центру */
+    color: white;
+  }
+
+  .menu a, #enter {
+    margin-left: 50px; /* Отступ между ссылками */
+    font-size: 20px;
+    text-decoration: none;
+    color: white;
+  }
+
+
+
+
+  .login-box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    padding: 40px;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.848);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0,0,0,.6);
+    border-radius: 10px;
+  }
+  
+  .login-box h2 {
+    margin: 0 0 30px;
+    padding: 0;
+    color: #fff;
+    text-align: center;
+  }
+  
+  .login-box .user-box {
+    position: relative;
+  }
+  
+  .login-box .user-box input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #fff;
+    outline: none;
+    background: transparent;
+  }
+  
+  .login-box .user-box label {
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    pointer-events: none;
+    transition: .5s;
+  }
+  
+  .login-box .user-box input:focus ~ label,
+  .login-box .user-box  input:valid ~ label {
+    top: -20px;
+    left: 0;
+    color: #03e9f4;
+    font-size: 12px;
+  }
+
+  .login-box form a {
+    position: relative;
+    display: inline-block;
+    padding: 10px 20px;
+    color: #03e9f4;
+    font-size: 16px;
+    text-decoration: none;
+    text-transform: uppercase;
+    overflow: hidden;
+    transition: .5s;
+    margin-top: 40px;
+    letter-spacing: 4px;
+  }
+  
+  
+  
+  .modal .login-button {
+    background-color: #007BFF; /* Цвет фона кнопки */
+    color: white; /* Цвет текста */
+    border: none; /* Убираем границу */
+    padding: 10px 20px; /* Отступы */
+    border-radius: 5px; /* Скругление углов */
+    cursor: pointer; /* Указатель мыши */
+    font-size: 16px; /* Размер шрифта */
+    transition: background-color 0.3s ease; /* Плавный переход цвета */
+    margin-left: 38%;
+  }
+
+
+
+
+  .enter-active {
+    position: absolute; /* Используем относительное позиционирование */
+    z-index: 1; /* Убедимся, что ссылка "Войти" будет поверх остальных элементов */
+    right: 20px;
+}
+
+.close {
+    font: 20px;
+}
+
+
+
+
+
+
+@media (max-width: 901px) {
+    .menu {
+      display: none; /* Скрываем меню для мобильных */
+    }
+  
+    .menu a {
+      margin-left: 0; /* Отступ между ссылками */
+    }
+  
+    .menu.active {
+      display: flex; /* Показываем меню, когда оно активно */
+      flex-direction: column; /* Размещаем ссылки вертикально */
+      position: absolute; /* Позиционируем меню абсолютно */
+      top: 51.8px; /* Отступ от верхней части */
+      left: 0;
+      background-color: #202c36; /* Цвет фона */
+      width: 100%; /* Меню занимает всю ширину экрана */
+      box-sizing: border-box; /* Учитывает padding и border в ширине */
+    }
+    
+    .menu.active a {
+      padding: 10px 20px; /* Устанавливаем адекватные отступы */
+      font-size: larger;
+      border: 2px solid silver;
+      width: 100%; /* Ширина ссылок на 100% от контейнера */
+      box-sizing: border-box; /* Чтобы границы и отступы не увеличивали ширину */
+    }
+  }
+
+
+
+  @media (min-width: 902px) {
+    .burgerMenu {
+      display: none; /* Скрываем бургер-меню на больших экранах */
+    }
+  
+    .menu {
+      display: flex; /* Отображаем меню для больших экранов */
+    }
+  }
+  
+  @media (max-width: 505px) {
+    .menu {
+      display: none; /* Скрываем меню на маленьких экранах */
+    }
+  }
