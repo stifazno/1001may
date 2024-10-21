@@ -7,8 +7,8 @@ header {
     background-color: #202c36;
     color: white;
     display: flex;
-    justify-content: space-between; /* Изменяем для лучшего выравнивания */
-    padding: 10px 20px; /* Увеличиваем отступы */
+    justify-content: space-between; 
+    padding: 10px 20px; 
   }
 
   nav {
@@ -18,18 +18,18 @@ header {
   }
 
   .burgerMenu {
-    cursor: pointer; /* Курсор при наведении */
-    font-size: 20px; /* Размер шрифта */
+    cursor: pointer; 
+    font-size: 20px; 
   }
 
   .menu {
-    display: flex; /* По умолчанию меню отображается горизонтально */
-    align-items: center; /* Выравнивание по центру */
+    display: flex; 
+    align-items: center; 
     color: white;
   }
 
   .menu a, #enter {
-    margin-left: 50px; /* Отступ между ссылками */
+    margin-left: 50px; 
     font-size: 20px;
     text-decoration: none;
     color: white;
@@ -111,14 +111,14 @@ header {
   
   
   .modal .login-button {
-    background-color: #007BFF; /* Цвет фона кнопки */
-    color: white; /* Цвет текста */
-    border: none; /* Убираем границу */
-    padding: 10px 20px; /* Отступы */
-    border-radius: 5px; /* Скругление углов */
-    cursor: pointer; /* Указатель мыши */
-    font-size: 16px; /* Размер шрифта */
-    transition: background-color 0.3s ease; /* Плавный переход цвета */
+    background-color: #007BFF;
+    color: white; 
+    border: none; 
+    padding: 10px 20px;
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-size: 16px;
+    transition: background-color 0.3s ease; 
     margin-left: 38%;
   }
 
@@ -126,8 +126,8 @@ header {
 
 
   .enter-active {
-    position: absolute; /* Используем относительное позиционирование */
-    z-index: 1; /* Убедимся, что ссылка "Войти" будет поверх остальных элементов */
+    position: absolute; 
+    z-index: 1; 
     right: 20px;
 }
 
@@ -142,30 +142,30 @@ header {
 
 @media (max-width: 901px) {
     .menu {
-      display: none; /* Скрываем меню для мобильных */
+      display: none; 
     }
   
     .menu a {
-      margin-left: 0; /* Отступ между ссылками */
+      margin-left: 0; 
     }
   
     .menu.active {
-      display: flex; /* Показываем меню, когда оно активно */
-      flex-direction: column; /* Размещаем ссылки вертикально */
-      position: absolute; /* Позиционируем меню абсолютно */
-      top: 51.8px; /* Отступ от верхней части */
+      display: flex; 
+      flex-direction: column; 
+      position: absolute; 
+      top: 51.8px; 
       left: 0;
-      background-color: #202c36; /* Цвет фона */
-      width: 100%; /* Меню занимает всю ширину экрана */
-      box-sizing: border-box; /* Учитывает padding и border в ширине */
+      background-color: #202c36;
+      width: 100%; 
+      box-sizing: border-box; 
     }
     
     .menu.active a {
-      padding: 10px 20px; /* Устанавливаем адекватные отступы */
+      padding: 10px 20px; 
       font-size: larger;
       border: 2px solid silver;
-      width: 100%; /* Ширина ссылок на 100% от контейнера */
-      box-sizing: border-box; /* Чтобы границы и отступы не увеличивали ширину */
+      width: 100%; 
+      box-sizing: border-box; 
     }
   }
 
@@ -173,16 +173,16 @@ header {
 
   @media (min-width: 902px) {
     .burgerMenu {
-      display: none; /* Скрываем бургер-меню на больших экранах */
+      display: none;
     }
   
     .menu {
-      display: flex; /* Отображаем меню для больших экранов */
+      display: flex; 
     }
   }
   
   @media (max-width: 505px) {
     .menu {
-      display: none; /* Скрываем меню на маленьких экранах */
+      display: none; 
     }
   }

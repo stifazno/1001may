@@ -75,15 +75,15 @@
     text-decoration: underline;
   }
   
-  /* Добавьте другие необходимые стили */
+
   
 
 
   @media (max-width: 609px) {
     .footerContainer {
 
-        flex-direction: column; /* Элементы в столбик */
-        align-items: center; /* Центрирование содержимого */
+        flex-direction: column; 
+        align-items: center; 
     }
     .footerLogo {
         display: none;
@@ -94,8 +94,8 @@
 /* Для планшетов */
 @media (min-width: 610px) and (max-width: 900px) {
     .footerContainer {
-        flex-direction: row; /* Элементы в ряд */
-        justify-content: space-between; /* Равномерное распределение пространства */
+        flex-direction: row; 
+        justify-content: space-between; 
     }
 }
 
@@ -111,8 +111,8 @@
 @media (min-width: 901px) {
     .footerContainer {
         margin-left: 15%;
-        flex-direction: row; /* Элементы в ряд */
-        padding: 10px 50px; /* Стандартные отступы */
+        flex-direction: row; 
+        padding: 10px 50px; 
     }
 }
 

@@ -6,7 +6,7 @@ import { useState } from 'react';
 const Header = () =>{
 
     const [showLoginForm, setShowLoginForm] = useState(false);
-    const [isMenuOpen, setIsMenuOpen] = useState(false); // Состояние для управления видимостью меню
+    const [isMenuOpen, setIsMenuOpen] = useState(false); 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
