@@ -1,14 +1,16 @@
 "use client"; // Указание, что компонент клиентский
-import styles from './Header.css'
+import styles from './Header.css';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { usePathname } from 'next/navigation'; // Импортируем usePathname
 
-const Header = () =>{
-
+const Header = () => {
+    const pathname = usePathname(); // Получаем текущий маршрут
     const [showLoginForm, setShowLoginForm] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false); 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const modalRef = useRef(null); // Создаём реф для модального окна
 
     const handleLoginClick = (e) => {
         e.preventDefault(); // предотвращаем переход по ссылке
@@ -45,7 +47,27 @@ const Header = () =>{
         setShowLoginForm(false); // Закрываем форму после отправки
     };
 
-    return(
+    // Обработчик кликов вне модального окна
+    const handleClickOutside = (event) => {
+        if (modalRef.current && !modalRef.current.contains(event.target)) {
+            setShowLoginForm(false); // Закрываем форму, если клик был вне неё
+        }
+    };
+
+    // Добавляем обработчик событий при монтировании компонента
+    useEffect(() => {
+        if (showLoginForm) {
+            document.addEventListener('mousedown', handleClickOutside);
+        } else {
+            document.removeEventListener('mousedown', handleClickOutside);
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [showLoginForm]);
+
+    return (
         <header>
             <nav>
                 <div className="burgerMenu" onClick={toggleMenu}>
@@ -57,15 +79,18 @@ const Header = () =>{
                     <Link href="#">Адрес</Link>
                 </div>
             </nav>
-            <div>
-                <a href="#" onClick={handleLoginClick} id="enter" 
-                className={showLoginForm ? 'enter-active' : ''}
-                >Войти</a>
-            </div>
+            {/* Условный рендеринг ссылки "Войти" только если мы не на странице регистрации */}
+            {pathname !== '/registration' && !showLoginForm && (
+                <div>
+                    <a href="#" onClick={handleLoginClick} id="enter" className="enter-active">
+                        Войти
+                    </a>
+                </div>
+            )}
 
             {showLoginForm && (
                 <div className="modal">
-                    <div className="modal-content">
+                    <div className="modal-content" ref={modalRef}>
                         <div className="login-box">
                             <span className="close" onClick={handleClose}>&times;</span>
                             <h2>Вход</h2>
@@ -90,6 +115,11 @@ const Header = () =>{
                                     />
                                     <label>Пароль</label>
                                 </div>
+                                <Link href="/registration" passHref legacyBehavior>
+                                    <div className="registration" onClick={handleClose}>
+                                        Создать аккаунт
+                                    </div>
+                                </Link>
                                 <button type="submit" className="login-button">Войти</button>
                             </form>
                         </div>
@@ -97,7 +127,7 @@ const Header = () =>{
                 </div>
             )}
         </header>
-    )
+    );
 }
 
 export default Header;

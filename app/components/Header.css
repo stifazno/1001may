@@ -136,6 +136,23 @@ header {
 }
 
 
+.registration {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10px;
+  cursor: pointer;
+}
+
+.registration:active {
+  scale: 1.1;
+}
+
+
+
+
+
+
+
 
 
 
@@ -186,3 +203,11 @@ header {
       display: none; 
     }
   }
+
+
+ 
+
+
+
+
+  
