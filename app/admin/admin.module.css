@@ -1,0 +1,29 @@
+.adminContainer {
+    padding: 20px;
+  }
+  
+  .header {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .subHeader {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .userTable {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .userTable th, .userTable td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .userTable th {
+    background-color: #f4f4f4;
+  }
+  
