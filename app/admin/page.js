@@ -1,6 +1,8 @@
+// page.js
 'use client'; // Убедитесь, что эта строка в начале файла
 import React, { useEffect, useState } from 'react';
 import styles from './admin.module.css'; // Предполагается, что у вас есть стили для админки
+import UploadProductForm from '../components/UploadProductForm';  // Импортируем компонент загрузки файла
 
 export default function AdminPage() {
   const [users, setUsers] = useState([]);
@@ -48,6 +50,11 @@ export default function AdminPage() {
   return (
     <div className={styles.adminContainer}>
       <h1 className={styles.header}>Админка</h1>
+      <h2 className={styles.subHeader}>Список пользователей</h2>
+      
+      {/* Форма для загрузки Excel с товарами */}
+      <UploadProductForm />
+      
       <h2 className={styles.subHeader}>Список пользователей</h2>
       <table className={styles.userTable}>
         <thead>

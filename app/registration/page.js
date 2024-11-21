@@ -1,5 +1,5 @@
-'use client'; // Добавьте эту строку в начало файла
-import React, { useState } from 'react'; // Импорт React
+'use client';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import styles from './page.module.css';
 
@@ -7,10 +7,10 @@ export default function Registration() {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
-    email: '', // Используем email как имя пользователя
+    username: '', // Это поле для ввода имени пользователя
+    email: '', // Поле для email, теперь оно необязательное
     phone: '',
     company: '',
-    position: 'Проектировщик',
     password: '',
   });
 
@@ -51,7 +51,7 @@ export default function Registration() {
         Если вы уже зарегистрированы, перейдите на страницу{' '}
         <Link href="/">авторизации</Link>.
       </p>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} id='f'>
         <h2 className={styles.subHeader}>Основные данные</h2>
         <div className={styles.formGroup}>
           <label className={styles.label}>Имя</label>
@@ -76,14 +76,24 @@ export default function Registration() {
           />
         </div>
         <div className={styles.formGroup}>
+          <label className={styles.label}>Имя пользователя</label>
+          <input
+            type="text"
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
+            required
+            className={styles.inputField}
+          />
+        </div>
+        <div className={styles.formGroup}>
           <label className={styles.label}>Email</label>
           <input
             type="email"
             name="email"
             value={formData.email}
             onChange={handleChange}
-            required
-            className={styles.inputField}
+            className={styles.inputField} // Убираем 'required'
           />
         </div>
         <div className={styles.formGroup}>
@@ -108,7 +118,6 @@ export default function Registration() {
             className={styles.inputField}
           />
         </div>
-
         <h2 className={styles.subHeader}>Дополнительно</h2>
         <div className={styles.formGroup}>
           <label className={styles.label}>Компания</label>
@@ -120,24 +129,11 @@ export default function Registration() {
             className={styles.inputField}
           />
         </div>
-        <div className={styles.formGroup}>
-          <label className={styles.label}>Должность</label>
-          <select
-            name="position"
-            value={formData.position}
-            onChange={handleChange}
-            required
-            className={styles.selectField}
-          >
-            <option value="Проектировщик">Проектировщик</option>
-            <option value="Инженер">Инженер</option>
-            <option value="Менеджер">Менеджер</option>
-          </select>
+        <div className={styles.buttonWrapper}>
+          <button type="submit" className={styles.submitButton}>
+            Продолжить
+          </button>
         </div>
-
-        <button type="submit" className={styles.submitButton}>
-          Продолжить
-        </button>
       </form>
 
       <p className={styles.textCenter}>
