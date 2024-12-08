@@ -2,45 +2,88 @@
     padding: 0;
     margin: 0;
 }
-
-header {
-    background-color: #202c36;
-    color: white;
+.headerNavig{
+  position: sticky;
+  top: 0;
+}
+.header {
+    position: sticky;
+    top: 0;
     display: flex;
-    justify-content: space-between; 
-    padding: 10px 20px; 
+    justify-content: space-between; /* или можно использовать center, если хотите центрировать содержимое внутри */
+    align-items: center;
+    width: 100%;
+    max-width: 1350px; /* Устанавливаем максимальную ширину */
+    margin: 0 auto; /* Центрируем сам header по горизонтали */
+    padding: 20px;
+    background-color: #fff; /* Для видимости, если нужно */ 
   }
 
-  nav {
+  .headerLogo {
+    font-size: 24px;
+  }
+  
+  .headerKatalog {
+    font-size: 18px;
+  }
+  
+  .headerButtons {
     display: flex;
-    justify-content: start;
     align-items: center;
   }
-
-  .burgerMenu {
-    cursor: pointer; 
-    font-size: 20px; 
-  }
-
-  .menu {
-    display: flex; 
-    align-items: center; 
-    color: white;
-  }
-
-  .menu a, #enter {
-    margin-left: 50px; 
-    font-size: 20px;
+  
+  .headerButtons a {
+    display: inline-flex;
+    flex-direction: column;
+    color: black;
     text-decoration: none;
-    color: white;
+    align-items: center;
+    margin: 15px;
   }
-
-
-
+  
+  .headerButtons span {
+    font-size: 15px;
+    align-items: center;
+  }
+  
+  .headerButtons a i {
+    margin: 10px;
+    font-size: larger;
+  }
+  
+  .headerSearch {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+  }
+  
+  .searchInput {
+    padding: 10px 40px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+    width: 200px;
+  }
+  
+  .searchButton {
+    padding: 10px 15px;
+    font-size: 14px;
+    color: white;
+    background-color: #333;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .searchButton:hover {
+    background-color: #555;
+  }
+  
 
   .login-box {
     position: absolute;
-    top: 50%;
+    top: 400%;
     left: 50%;
     width: 400px;
     padding: 40px;
@@ -108,8 +151,6 @@ header {
     letter-spacing: 4px;
   }
   
-  
-  
   .modal .login-button {
     background-color: #007BFF;
     color: white; 
@@ -122,40 +163,22 @@ header {
     margin-left: 38%;
   }
 
-
-
-
-  .enter-active {
-    position: absolute; 
-    z-index: 1; 
-    right: 20px;
-}
-
 .close {
     font: 20px;
 }
 
-
 .registration {
+  
   display: flex;
   justify-content: center;
   padding-bottom: 10px;
   cursor: pointer;
+  color: white;
 }
 
 .registration:active {
   scale: 1.1;
 }
-
-
-
-
-
-
-
-
-
-
 
 @media (max-width: 901px) {
     .menu {
@@ -205,9 +228,76 @@ header {
   }
 
 
- 
 
 
 
 
+
+
+  .navigation {
+    display: flex;
+    list-style-type: none; /* Убирает маркеры списка */
+    padding: 0;
+    margin: 0;
+    max-width: 1350px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Шрифт с современным и чистым видом */
+   
+    
+  }
+
+  .navItem {
+    padding: 10px 15px;
+    font-size: 16px; /* Размер шрифта */
+    font-weight: 600; /* Увеличивает жирность текста */
+    color: #333; /* Цвет шрифта */
+    text-transform: uppercase; /* Преобразует все буквы в верхний регистр */
+    letter-spacing: 1px; /* Немного увеличивает расстояние между буквами */
+    transition: color 0.3s ease; /* Плавный переход цвета */
+    text-decoration: none;
+  }
+
+  .navigation .navItem a {
+    text-decoration: none; /* Убираем подчеркивание */
+    color: inherit; /* Наследуем цвет от родительского элемента */
+  }
+  .headerLogo a {
+    text-decoration: none; /* Убирает подчеркивание */
+    color: inherit; /* Сохраняет цвет текста от родителя */
+}
+
+
+  .navigation .navItem a:hover  {
+    color: inherit; /* Убираем изменение цвета при наведении */
+  }
+
+  .navItem:hover {
+    color: #ff6347; /* Цвет шрифта при наведении (например, томатный) */
+    cursor: pointer;
+  }
+
+
+  /* Добавление горизонтальных линий до и после nav */
+.navigationWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    background-color: white;
+    
+  }
   
+  .navigationWrapper::before,
+  .navigationWrapper::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 2px; /* Толщина линии */
+    background-color: #000; /* Цвет линии */
+    margin-bottom: 10px; /* Отступ после верхней линии */
+  }
+  
+  .navigationWrapper::after {
+    margin-top: 10px; /* Отступ перед нижней линией */
+  }
+  
+
