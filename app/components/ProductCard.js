@@ -1,6 +1,10 @@
+// app/components/ProductCard.js
+import { useCart } from './CartContext';
 import styles from './ProductCard.module.css';
 
 export default function ProductCard({ product }) {
+  const { addToCart } = useCart(); // Используем хук для получения функции добавления в корзину
+
   // Конвертация объема в литры
   const getVolumeInLiters = (volume, unit) => {
     if (unit === 'ltr') {
@@ -10,9 +14,18 @@ export default function ProductCard({ product }) {
     } else if (unit === 'cl') {
       return `${(volume / 100).toFixed(2)} л`;
     } else {
-      // Для других единиц возвращаем исходное значение с указанием единиц
       return `${volume} ${unit}`;
     }
+  };
+
+  const handleAddToCart = () => {
+    // Добавляем товар в корзину
+    addToCart({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      quantity: 1,
+    });
   };
 
   return (
@@ -23,14 +36,13 @@ export default function ProductCard({ product }) {
       <div className={styles.productDetails}>
         <p className={styles.productPrice}>
           <span className={styles.currentPrice}>{product.price} TJS</span>
-          {product.price && (
-            <span className={styles.oldPrice}>{product.price} TJS</span>
-          )}
         </p>
         <h3 className={styles.productName}>
-          {product.name} ({getVolumeInLiters(product.volume, product.unit)})
+          {product.name} ({product.volume} {product.unit})
         </h3>
-        <button className={styles.addToCart}>В корзину</button>
+        <button className={styles.addToCart} onClick={handleAddToCart}>
+          В корзину
+        </button>
       </div>
     </div>
   );

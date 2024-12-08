@@ -1,4 +1,4 @@
-'use client';
+'use client'; 
 
 import { useSearchParams } from 'next/navigation'; 
 import { useState, useEffect } from 'react'; 
@@ -26,9 +26,27 @@ export default function SearchPage() {
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-      <div style={{ zIndex: '-1', maxWidth: '1350px', width: '100%', display: 'flex', flexDirection: 'column', gap: '30px' }}>
-        <h2 style={{ textAlign: 'center' }}>Search results for "{searchTerm}"</h2>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '30px', justifyContent: 'center' }}>
+      <div
+        style={{
+          maxWidth: '1350px',
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '30px',
+        }}
+      >
+        <h2 style={{ textAlign: 'center' }}>
+          {searchTerm ? `Search results for "${searchTerm}"` : 'Search results'}
+        </h2>
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '30px',
+            justifyContent: 'center',
+            pointerEvents: 'none', // Отключаем перехват кликов для всего контейнера
+          }}
+        >
           {products.length > 0 ? (
             products.map((product) => (
               <ProductCard key={product.id} product={product} />

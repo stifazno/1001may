@@ -4,6 +4,8 @@ import styles from './Header.css';
 import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation'; // Импортируем usePathname
+import { useCart } from './CartContext';
+import { setCookie } from 'cookies-next'; // библиотека для работы с cookies
 
 const Header = () => {
     const pathname = usePathname(); // Получаем текущий маршрут
@@ -14,6 +16,8 @@ const Header = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false)
     const [searchTerm, setSearchTerm] = useState(''); // Хранение поискового запроса
     const [searchResults, setSearchResults] = useState([]); // Результаты поиска
+    const { cart, totalCost } = useCart();
+
     const modalRef = useRef(null); // Создаём реф для модального окна
     
     const handleSearch = async (e) => {
@@ -63,6 +67,7 @@ const Header = () => {
                 alert('Успешный вход. Добро пожаловать!'); // Сообщение об успехе
                 console.log('Login successful:', data);
                 setIsLoggedIn(true); // Обновляем состояние
+                setCookie('token', data.token, { maxAge: 60 * 60 * 24 }); // Пример с хранением на 24 часа
             } else {
                 alert(`Ошибка: ${data.error || 'Не удалось войти'}`); // Сообщение об ошибке
                 console.error('Login failed:', data.error);
@@ -143,10 +148,12 @@ const Header = () => {
                         <i className="fa fa-heart"></i> {/* Иконка сердца */}
                         <span className={styles.headerNavItemText}>Избранное</span>
                     </a>
-                    <a href="#" className={`${styles.iCartHeader} ${styles.headerNavItem}`}>
+                    <Link href="/cart" className={`${styles.iCartHeader} ${styles.headerNavItem}`}>
                         <i className="fa fa-shopping-cart"></i> {/* Иконка корзины */}
-                        <span className={styles.headerNavItemText}>Корзина</span>
-                    </a>
+                        <span className={styles.headerNavItemText}>
+                            Корзина ({cart.length}): {totalCost} TJS
+                        </span>
+                    </Link>
                 </div>
 
                 {showLoginForm && (

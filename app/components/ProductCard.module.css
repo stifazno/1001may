@@ -98,3 +98,12 @@
     background: #d32f2f;
   }
   
+  .productCard {
+    pointer-events: none; /* Отключаем все события кликов */
+  }
+  
+  .productCard .addToCart {
+    pointer-events: auto; /* Включаем события кликов для кнопки */
+    z-index: 10; /* Убедитесь, что кнопка находится выше других элементов */
+  }
+  

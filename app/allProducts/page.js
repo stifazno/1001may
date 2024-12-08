@@ -1,6 +1,6 @@
 'use client'; // Директива для указания, что это клиентский компонент
 
-import { useSearchParams } from 'next/navigation'; // Используем хук для получения параметров поиска
+import { useSearchParams } from 'next/navigation'; // Хук для получения параметров поиска
 import { useState, useEffect } from 'react'; // Импортируем useState и useEffect
 
 import ProductCard from '../components/ProductCard';
@@ -25,9 +25,25 @@ export default function ProductsPage() {
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-      <div style={{ zIndex: '-1', maxWidth: '1350px', width: '100%', display: 'flex', flexDirection: 'column', gap: '30px' }}>
+      {/* Отключаем перехват кликов для всех элементов */}
+      <div
+        style={{
+          maxWidth: '1350px',
+          width: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '30px',
+        }}
+      >
         <h2 style={{ textAlign: 'center' }}>{category}</h2>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '30px', justifyContent: 'center' }}>
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '30px',
+            justifyContent: 'center',
+          }}
+        >
           {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
