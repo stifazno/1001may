@@ -6,7 +6,7 @@ const Footer = () =>{
         <footer className={styles.footer}>
             <div className={styles.footerContainer}>
                 <div className={styles.footerLogo}>
-                    <img src="" alt="ЛОГО МАГАЗИНА" />
+                    
                     <p>Винный магазин</p>
                     <a href="tel:+74956625895">+7 (929) 937-25-85</a>
                     <a href="mailto:sales@decanter.ru">patsangeniy@gmail.com</a>

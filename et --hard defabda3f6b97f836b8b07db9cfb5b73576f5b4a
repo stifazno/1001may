@@ -1,0 +1,59 @@
+[33mcommit defabda3f6b97f836b8b07db9cfb5b73576f5b4a[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: Mamadrahimzoda Mehrali <orzuzoda.mehrali@gmai.com>
+Date:   Mon Dec 9 01:34:14 2024 +0300
+
+    Backup before upgrading Next.js
+
+[33mcommit 5abcb4ec0d5755a80a6ef6870f8c1c60c2365412[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: Mamadrahimzoda Mehrali <orzuzoda.mehrali@gmai.com>
+Date:   Sun Dec 8 14:15:05 2024 +0300
+
+    search and category added
+
+[33mcommit de3947747625a002c192f99cdda63a2fb90c95cf[m
+Author: Mamadrahimzoda Mehrali <orzuzoda.mehrali@gmai.com>
+Date:   Mon Nov 25 21:43:48 2024 +0300
+
+    products
+
+[33mcommit dec698dfd54054da988125d5c8eaa1bb3f29d62b[m
+Author: Mamadrahimzoda Mehrali <orzuzoda.mehrali@gmai.com>
+Date:   Thu Nov 21 21:31:54 2024 +0300
+
+    exsel sv database
+
+[33mcommit d685eecf92e38c91e82fe00a8b10eda82db01992[m
+Author: Mamadrahimzoda Mehrali <orzuzoda.mehrali@gmai.com>
+Date:   Tue Nov 5 19:36:45 2024 +0300
+
+    Админка + связанная бд
+
+[33mcommit 41b9dc9324d4d83f67b216136ef5e00bb031f81b[m
+Author: Mamadrahimzoda Mehrali <orzuzoda.mehrali@gmai.com>
+Date:   Mon Nov 4 11:49:39 2024 +0300
+
+    registration_page
+
+[33mcommit ccf4cbd7838fbfe57aa3be341ab9f8e627c1b319[m
+Author: Mamadrahimzoda Mehrali <orzuzoda.mehrali@gmai.com>
+Date:   Mon Oct 21 19:50:32 2024 +0300
+
+    comments
+
+[33mcommit 6360db96ea095fdc28338c81f1d04fdcb99b3cfb[m
+Author: Mamadrahimzoda Mehrali <orzuzoda.mehrali@gmai.com>
+Date:   Mon Oct 21 19:38:31 2024 +0300
+
+    form connected with DB
+
+[33mcommit a8825d33fc8c4dcfed667651a458ffb5a4ed9a76[m
+Author: Mamadrahimzoda Mehrali <orzuzoda.mehrali@gmai.com>
+Date:   Mon Oct 21 17:43:16 2024 +0300
+
+    first commit
+
+[33mcommit 6dbbbd4faf08710a5cf843b25baafd8bee484f1b[m
+Author: stifazno <orzuzoda.mehrali@gmail.com>
+Date:   Mon Oct 7 16:03:06 2024 +0300
+
+    Initial commit from Create Next App

@@ -13,7 +13,7 @@ export default function SearchPage() {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const res = await fetch(`http://localhost:3000/api/products/search?search=${searchTerm}`, { cache: 'no-store' });
+      const res = await fetch(`/api/products/search?search=${searchTerm}`, { cache: 'no-store' });
       const data = await res.json();
       console.log('Products fetched from search:', data); // Логируем полученные товары
       setProducts(data); 

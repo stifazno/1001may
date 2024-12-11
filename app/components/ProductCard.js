@@ -31,7 +31,7 @@ export default function ProductCard({ product }) {
   return (
     <div className={styles.productCard}>
       <div className={styles.productImage}>
-        <img src={product.image || 'https://via.placeholder.com/150'} alt={product.name} />
+        <img src={'https://via.placeholder.com/150'} alt={product.name} />
       </div>
       <div className={styles.productDetails}>
         <p className={styles.productPrice}>

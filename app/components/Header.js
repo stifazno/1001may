@@ -118,7 +118,7 @@ const Header = () => {
                             placeholder="Искать..."
                             className="searchInput"
                         />
-                        <Link href={`/search?search=${searchTerm}`}>
+                        <Link href={`/search?search=${searchTerm}`} passHref legacyBehavior>
                             <button type="submit" className="searchButton">
                                Поиск   
                             </button>

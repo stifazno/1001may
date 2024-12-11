@@ -13,7 +13,7 @@ export default function ProductsPage() {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const res = await fetch(`http://localhost:3000/api/allProducts?category=${category}`, { cache: 'no-store' });
+      const res = await fetch(`/api/allProducts?category=${category}`, { cache: 'no-store' });
       const data = await res.json();
       setProducts(data); // Обновляем список товаров
     };
