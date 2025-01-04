@@ -3,6 +3,7 @@
 import { useCart } from '../components/CartContext';
 import { useRouter } from 'next/navigation';
 import styles from './Checkout.module.css'; // Подключение стилей
+import Cookies from 'js-cookie'; // Импортируем библиотеку для работы с cookies
 
 export default function CheckoutPage() {
   const { cart, totalCost, clearCart } = useCart();
@@ -10,9 +11,23 @@ export default function CheckoutPage() {
 
   const handleOrderSubmit = async () => {
     try {
+      // Извлекаем токен из cookies
+      const token = Cookies.get('auth_token');
+
+      // Выводим токен в консоль
+      console.log('Токен:', token);
+
+      if (!token) {
+        alert('Пожалуйста, войдите в систему!');
+        return;
+      }
+
       const response = await fetch('/api/orders', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`, // Добавляем токен в заголовок
+        },
         body: JSON.stringify({ cart, totalCost }),
       });
 

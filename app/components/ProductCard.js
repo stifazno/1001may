@@ -40,6 +40,9 @@ export default function ProductCard({ product }) {
         <h3 className={styles.productName}>
           {product.name} ({product.volume} {product.unit})
         </h3>
+        <p>
+          {product.category}
+        </p>
         <button className={styles.addToCart} onClick={handleAddToCart}>
           В корзину
         </button>

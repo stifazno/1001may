@@ -11,8 +11,13 @@ export async function GET(request) {
         const params = [];
 
         if (category) {
-            productsQuery += ' WHERE category = $1';
-            params.push(category);
+            if (category === 'Вино') {
+                productsQuery += " WHERE category LIKE $1";
+                params.push('Вино%'); // Используем шаблон для поиска
+            } else {
+                productsQuery += " WHERE category = $1";
+                params.push(category);
+            }   
         }
 
         // Добавляем фильтрацию по запросу поиска, если он есть

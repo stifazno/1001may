@@ -1,45 +1,43 @@
-import { db } from '../../lib/db'; // Подключение к базе данных
-import { getSession } from 'next-auth/react'; // Если используется next-auth для аутентификации
+import { query } from '../../lib/db.js';
+import jwt from 'jsonwebtoken';
+
+const JWT_SECRET = 'samurai.61203';
 
 export async function POST(req) {
+  const token = req.headers.get('Authorization')?.split(' ')[1]; // Извлекаем токен из заголовка
+
+  if (!token) {
+    return new Response(JSON.stringify({ error: 'Токен не найден' }), { status: 401 });
+  }
+
   try {
-    // Получаем данные запроса
-    const body = await req.json();
-    const { cart, totalCost } = body;
+    // Проверка токена
+    const decoded = jwt.verify(token, JWT_SECRET);
 
-    // Проверяем, есть ли пользователь
-    const session = await getSession({ req });
-    if (!session || !session.user) {
-      return new Response(JSON.stringify({ error: 'Пользователь не авторизован' }), { status: 401 });
-    }
+    // Получение информации о пользователе из токена
+    const userId = decoded.id;
+    const { cart, totalCost } = await req.json();
 
-    // Извлекаем информацию о пользователе
-    const userId = session.user.id;
-
-    // Создаем заказ
-    const orderResult = await db.query(
-      `INSERT INTO orders (user_id, total_price, created_at) VALUES ($1, $2, NOW()) RETURNING id`,
-      [userId, totalCost]
+    // Логика для оформления заказа
+    // Например, создание записи в таблице orders
+    const orderResult = await query(
+      'INSERT INTO orders (user_id, status, total_cost, created_at, updated_at) VALUES ($1, $2, $3, NOW(), NOW()) RETURNING id',
+      [userId, 'pending', totalCost]
     );
-
-    if (!orderResult.rows.length) {
-      return new Response(JSON.stringify({ error: 'Не удалось создать заказ' }), { status: 500 });
-    }
 
     const orderId = orderResult.rows[0].id;
 
-    // Добавляем товары в таблицу order_items
+    // Логика для добавления товаров в таблицу order_items
     for (const item of cart) {
-      await db.query(
-        `INSERT INTO order_items (order_id, product_id, quantity, price, total_price) 
-         VALUES ($1, $2, $3, $4, $5)`,
-        [orderId, item.id, item.quantity, item.price, item.quantity * item.price]
+      await query(
+        'INSERT INTO order_items (order_id, product_id, quantity, price, total_price, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, NOW(), NOW())',
+        [orderId, item.id, item.quantity, item.price, item.price * item.quantity]
       );
     }
 
-    return new Response(JSON.stringify({ success: true, orderId }), { status: 201 });
+    return new Response(JSON.stringify({ orderId }), { status: 200 });
   } catch (error) {
-    console.error('Ошибка создания заказа:', error); // Печать ошибки для диагностики
-    return new Response(JSON.stringify({ error: 'Ошибка создания заказа' }), { status: 500 });
+    console.error(error);
+    return new Response(JSON.stringify({ error: 'Ошибка при верификации токена' }), { status: 401 });
   }
 }
