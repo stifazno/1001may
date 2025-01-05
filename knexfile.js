@@ -1,0 +1,58 @@
+// Update with your config settings.
+
+/**
+ * @type { Object.<string, import("knex").Knex.Config> }
+ */
+module.exports = {
+  development: {
+    client: 'pg',
+    connection: {
+      host: '127.0.0.1', // Локальный сервер
+      database: 'dbForRBD', // Название базы данных
+      user: 'postgres', // Имя пользователя
+      password: 'stifazno', // Пароль
+    },
+    migrations: {
+      directory: './migrations', // Укажите путь, где хотите хранить миграции
+    },
+    seeds: {
+      directory: './seeds', // Путь к папке с сидерами (если нужны)
+    },
+  },
+
+  staging: {
+    client: 'pg',
+    connection: {
+      host: 'staging_db_host',
+      database: 'staging_db',
+      user: 'staging_user',
+      password: 'staging_password',
+    },
+    pool: {
+      min: 2,
+      max: 10,
+    },
+    migrations: {
+      tableName: 'knex_migrations',
+      directory: './migrations',
+    },
+  },
+
+  production: {
+    client: 'pg',
+    connection: {
+      host: 'production_db_host',
+      database: 'production_db',
+      user: 'production_user',
+      password: 'production_password',
+    },
+    pool: {
+      min: 2,
+      max: 10,
+    },
+    migrations: {
+      tableName: 'knex_migrations',
+      directory: './migrations',
+    },
+  },
+};

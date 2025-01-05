@@ -17,10 +17,11 @@
     "cookies-next": "^5.0.2",
     "js-cookie": "^3.0.5",
     "jsonwebtoken": "^9.0.2",
+    "knex": "^3.1.0",
     "multer": "^1.4.5-lts.1",
     "next": "^15.1.0",
     "next-auth": "^4.24.11",
-    "pg": "^8.13.0",
+    "pg": "^8.13.1",
     "react": "^18",
     "react-dom": "^18",
     "xlsx": "^0.18.5"
