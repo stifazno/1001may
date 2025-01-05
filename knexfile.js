@@ -7,10 +7,10 @@ module.exports = {
   development: {
     client: 'pg',
     connection: {
-      host: '127.0.0.1', // Локальный сервер
-      database: 'dbForRBD', // Название базы данных
-      user: 'postgres', // Имя пользователя
-      password: 'stifazno', // Пароль
+      host: process.env.DB_HOST, // Локальный сервер
+      database: process.env.DB_NAME, // Название базы данных
+      user: process.env.DB_USER, // Имя пользователя
+      password: process.env.DB_PASSWORD, // Пароль
     },
     migrations: {
       directory: './migrations', // Укажите путь, где хотите хранить миграции
