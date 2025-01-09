@@ -13,13 +13,14 @@ const Header = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false); 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [isLoggedIn, setIsLoggedIn] = useState(false)
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [searchTerm, setSearchTerm] = useState(''); // Хранение поискового запроса
     const [searchResults, setSearchResults] = useState([]); // Результаты поиска
+    const [notification, setNotification] = useState(null); // Для уведомлений
     const { cart, totalCost } = useCart();
 
     const modalRef = useRef(null); // Создаём реф для модального окна
-    
+
     const handleSearch = async (e) => {
         e.preventDefault();
         try {
@@ -28,14 +29,32 @@ const Header = () => {
             if (res.ok) {
                 setSearchResults(data); // Сохраняем результаты поиска
             } else {
-                alert(`Ошибка: ${data.error || 'Не удалось выполнить поиск'}`);
+                setNotification({ type: 'error', message: data.error || 'Не удалось выполнить поиск' });
             }
         } catch (error) {
-            alert('Ошибка сети. Проверьте соединение.');
+            setNotification({ type: 'error', message: 'Ошибка сети. Проверьте соединение.' });
             console.error('Search error:', error);
         }
     };
 
+    const handleLogout = async () => {
+        try {
+            // Отправляем запрос на сервер для выхода
+            const res = await fetch('/api/logout', { method: 'POST' });
+    
+            if (res.ok) {
+                setIsLoggedIn(false); // Обновляем состояние на клиенте
+                setNotification({ type: 'success', message: 'Вы успешно вышли.' });
+            } else {
+                setNotification({ type: 'error', message: 'Не удалось выйти из аккаунта.' });
+            }
+        } catch (error) {
+            setNotification({ type: 'error', message: 'Ошибка сети при выходе.' });
+            console.error('Logout error:', error);
+        }
+    };
+    
+    
     const handleLoginClick = (e) => {
         e.preventDefault(); // предотвращаем переход по ссылке
         setShowLoginForm(true); // показываем форму
@@ -64,16 +83,16 @@ const Header = () => {
             const data = await res.json();
 
             if (res.ok) {
-                alert('Успешный вход. Добро пожаловать!'); // Сообщение об успехе
+                setNotification({ type: 'success', message: 'Успешный вход. Добро пожаловать!' });
                 console.log('Login successful:', data);
                 setIsLoggedIn(true); // Обновляем состояние
                 setCookie('token', data.token, { maxAge: 60 * 60 * 24 }); // Пример с хранением на 24 часа
             } else {
-                alert(`Ошибка: ${data.error || 'Не удалось войти'}`); // Сообщение об ошибке
-                console.error('Login failed:', data.error);
+                setNotification({ type: 'error', message: data.error || 'Не удалось войти' });
+                //console.error('Login failed:', data.error);
             }
         } catch (error) {
-            alert('Ошибка сети. Проверьте соединение и попробуйте снова.');
+            setNotification({ type: 'error', message: 'Ошибка сети. Проверьте соединение и попробуйте снова.' });
             console.error('Network error:', error);
         }
 
@@ -99,6 +118,10 @@ const Header = () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, [showLoginForm]);
+
+    const closeNotification = () => {
+        setNotification(null);
+    };
 
     return (
         <div className='headerNavig'>
@@ -144,6 +167,14 @@ const Header = () => {
                             <span className={styles.headerNavItemText}>Войти</span>
                         </a>
                     )}
+                
+                    {isLoggedIn && (
+                        <Link href="/account"  className={`${styles.iUserHeader} ${styles.headerNavItem}`}>
+                            <i className="fa fa-user"></i> {/* Иконка пользователя */}
+                            <span className={styles.headerNavItemText}>Личный кабинет</span>
+                        </Link>
+                    )}
+                
                     <a href="#" className={`${styles.iFavoriteHeader} ${styles.headerNavItem}`}>
                         <i className="fa fa-heart"></i> {/* Иконка сердца */}
                         <span className={styles.headerNavItemText}>Избранное</span>
@@ -154,6 +185,13 @@ const Header = () => {
                             Корзина ({cart.length}): {totalCost} TJS
                         </span>
                     </Link>
+                    {isLoggedIn && (
+                        <a href="#" onClick={handleLogout} className={`${styles.iUserHeader} ${styles.headerNavItem}`}>
+                            <i className="fa fa-sign-out-alt"></i> {/* Иконка выхода */}
+                            <span className={styles.headerNavItemText}>Выйти</span>
+                        </a>
+                    )}
+
                 </div>
 
                 {showLoginForm && (
@@ -191,6 +229,15 @@ const Header = () => {
                                     <button type="submit" className="login-button">Войти</button>
                                 </form>
                             </div>
+                        </div>
+                    </div>
+                )}
+
+                {notification && (
+                    <div className={`notification ${notification.type}`}>
+                        <div className="notification-content">
+                            <p>{notification.message}</p>
+                            <button onClick={closeNotification} className="close-notification">&times;</button>
                         </div>
                     </div>
                 )}

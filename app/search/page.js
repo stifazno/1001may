@@ -36,7 +36,7 @@ export default function SearchPage() {
         }}
       >
         <h2 style={{ textAlign: 'center' }}>
-          {searchTerm ? `Search results for "${searchTerm}"` : 'Search results'}
+          {searchTerm ? `Результаты поиска по "${searchTerm}"` : 'Результат поиска'}
         </h2>
         <div
           style={{
@@ -52,7 +52,7 @@ export default function SearchPage() {
               <ProductCard key={product.id} product={product} />
             ))
           ) : (
-            <p>No products found</p>
+            <p>Товар не найден!</p>
           )}
         </div>
       </div>

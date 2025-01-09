@@ -303,3 +303,67 @@
   }
   
 
+
+  /* Общие стили для уведомлений */
+.notification {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #333;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  z-index: 9999;
+  max-width: 300px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+}
+
+/* Для успешного уведомления */
+.notification.success {
+  background-color: #4CAF50;
+}
+
+/* Для ошибки */
+.notification.error {
+  background-color: #f44336;
+}
+
+/* Стили для контента уведомления */
+.notification-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+/* Кнопка закрытия уведомления */
+.close-notification {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 10px;
+}
+
+/* Анимация появления уведомления */
+@keyframes fadeIn {
+  0% {
+      opacity: 0;
+      transform: translateX(-50%) translateY(-20px);
+  }
+  100% {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+  }
+}
+
+

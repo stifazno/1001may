@@ -101,9 +101,22 @@
   .productCard {
     pointer-events: none; /* Отключаем все события кликов */
   }
+  .productCard:hover {
+    scale: 1.01;
+  }
+  .productImage img:hover{
+    scale : 0.1
+  }
   
   .productCard .addToCart {
     pointer-events: auto; /* Включаем события кликов для кнопки */
     z-index: 10; /* Убедитесь, что кнопка находится выше других элементов */
   }
   
+  .productCard .addToCart:hover{
+    scale: 1.05;
+  }
+
+  .productCard .addToCart:active{
+    color: #d32f2f;
+  }
