@@ -1,48 +1,62 @@
-'use client'; 
+'use client';
 import React, { useEffect, useState } from 'react';
-import styles from './admin.module.css'; 
+import styles from './admin.module.css';
 import UploadProductForm from '../components/UploadProductForm';
 
 export default function AdminPage() {
   const [users, setUsers] = useState([]);
-  const [orders, setOrders] = useState([]); // Состояние для заказов
-  const [selectedOrder, setSelectedOrder] = useState(null); // Состояние для выбранного заказа
+  const [orders, setOrders] = useState([]);
+  const [selectedOrder, setSelectedOrder] = useState(null);
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
-  // Загрузка пользователей
+  const correctPassword = 'admin'; // Пароль для доступа
+
+  // Проверка пароля
+  const handlePasswordSubmit = (e) => {
+    e.preventDefault();
+    if (password === correctPassword) {
+      setIsAuthenticated(true); // Устанавливаем аутентификацию
+      setError('');
+    } else {
+      setError('Неверный пароль');
+    }
+  };
+
+  // Загрузка пользователей и заказов только после аутентификации
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await fetch('/api/users');
-        if (!response.ok) {
-          throw new Error(`Ошибка: ${response.status}`);
+    if (isAuthenticated) {
+      const fetchUsers = async () => {
+        try {
+          const response = await fetch('/api/users');
+          if (!response.ok) {
+            throw new Error(`Ошибка: ${response.status}`);
+          }
+          const data = await response.json();
+          setUsers(data);
+        } catch (error) {
+          console.error('Ошибка при получении пользователей:', error);
         }
-        const data = await response.json();
-        setUsers(data);
-      } catch (error) {
-        console.error('Ошибка при получении пользователей:', error);
-      }
-    };
+      };
 
-    fetchUsers();
-  }, []);
-
-  // Загрузка заказов
-  useEffect(() => {
-    const fetchOrders = async () => {
-      try {
-        const response = await fetch('/api/admin/orders');
-        if (!response.ok) {
-          throw new Error(`Ошибка: ${response.status}`);
+      const fetchOrders = async () => {
+        try {
+          const response = await fetch('/api/admin/orders');
+          if (!response.ok) {
+            throw new Error(`Ошибка: ${response.status}`);
+          }
+          const data = await response.json();
+          setOrders(data);
+        } catch (error) {
+          console.error('Ошибка при получении заказов:', error);
         }
-        const data = await response.json();
-        setOrders(data);
-      } catch (error) {
-        console.error('Ошибка при получении заказов:', error);
-      }
-    };
+      };
 
-    fetchOrders();
-  }, []);
+      fetchUsers();
+      fetchOrders();
+    }
+  }, [isAuthenticated]); // Зависимость от isAuthenticated
 
   // Верификация пользователя
   const handleVerify = async (id) => {
@@ -74,6 +88,26 @@ export default function AdminPage() {
   // Закрыть модальное окно
   const closeOrderDetails = () => setSelectedOrder(null);
 
+  // Если пользователь не авторизован, показываем форму для ввода пароля
+  if (!isAuthenticated) {
+    return (
+      <div style={{ textAlign: 'center' }}>
+        <h2>Введите пароль для доступа к админке</h2>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+        <form onSubmit={handlePasswordSubmit}>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Пароль"
+          />
+          <button type="submit">Войти</button>
+        </form>
+      </div>
+    );
+  }
+
+  // Если пользователь авторизован, показываем админку
   return (
     <div className={styles.adminContainer}>
       <h1 className={styles.header}>Админка</h1>
@@ -173,8 +207,6 @@ export default function AdminPage() {
           </div>
         </div>
       )}
-
-
     </div>
   );
 }

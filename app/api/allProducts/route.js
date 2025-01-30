@@ -1,4 +1,5 @@
 import { query } from "@/app/lib/db";
+import Cookies from 'js-cookie'; // Импортируем библиотеку для работы с cookies
 
 export async function GET(request) {
     try {

@@ -9,8 +9,7 @@ exports.up = function(knex) {
       table.string('category', 255).nullable(); // Категория товара
       table.string('name', 255).nullable(); // Название товара
       table.string('volume', 50).nullable(); // Объем товара
-      table.string('unit', 50).nullable(); // Единица измерения
-      
+      table.string('unit', 50).nullable(); // Единица измерения      
       table.timestamps(true, true); // Создание полей created_at и updated_at
     });
   };
