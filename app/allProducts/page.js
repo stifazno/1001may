@@ -2,11 +2,10 @@
 
 import { useSearchParams } from 'next/navigation'; // Хук для получения параметров поиска
 import { useState, useEffect } from 'react'; // Импортируем useState и useEffect
+
 import ProductCard from '../components/ProductCard';
 
 export default function ProductsPage() {
-
-  
   const searchParams = useSearchParams(); // Хук для получения параметров поиска
   const category = searchParams.get('category'); // Получаем значение параметра category
 
@@ -37,12 +36,18 @@ export default function ProductsPage() {
         }}
       >
         <h2 style={{ textAlign: 'center' }}>{category}</h2>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
-  {products.map((product) => (
-    <ProductCard key={product.id} product={product} />
-  ))}
-</div>
-
+        <div
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '30px',
+            justifyContent: 'center',
+          }}
+        >
+          {products.map((product) => (
+            <ProductCard key={product.id} product={product} />
+          ))}
+        </div>
       </div>
     </div>
   );

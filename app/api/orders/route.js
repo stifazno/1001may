@@ -22,7 +22,7 @@ export async function POST(req) {
     // Например, создание записи в таблице orders
     const orderResult = await query(
       'INSERT INTO orders (user_id, status, total_cost, created_at, updated_at) VALUES ($1, $2, $3, NOW(), NOW()) RETURNING id',
-      [userId, 'В обработке', totalCost]
+      [userId, 'pending', totalCost]
     );
 
     const orderId = orderResult.rows[0].id;

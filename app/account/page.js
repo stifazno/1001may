@@ -87,7 +87,7 @@ export default function Account() {
                   <td>{order.order_id}</td>
                   <td>{new Date(order.order_date).toLocaleDateString()}</td>
                   <td>{order.order_status}</td>
-                  <td>{order.total_cost} TJS</td>
+                  <td>{order.total_cost} ₽</td>
                   <td>
                     <button
                       className={styles.viewButton}
@@ -109,12 +109,12 @@ export default function Account() {
             <h3>Детали заказа {selectedOrder.order_id}</h3>
             <p><strong>Дата:</strong> {new Date(selectedOrder.order_date).toLocaleDateString()}</p>
             <p><strong>Статус:</strong> {selectedOrder.order_status}</p>
-            <p><strong>Сумма:</strong> {selectedOrder.total_cost} TJS</p>
+            <p><strong>Сумма:</strong> {selectedOrder.total_cost} ₽</p>
             <h4>Товары:</h4>
             <ul>
               {selectedOrder.items.map((item) => (
                 <li key={item.product_id}>
-                  {item.product_name} ({item.quantity} x {item.product_price} TJS)
+                  {item.product_name} ({item.quantity} x {item.product_price} ₽)
                 </li>
               ))}
             </ul>
