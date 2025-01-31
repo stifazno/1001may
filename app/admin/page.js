@@ -1,5 +1,5 @@
 'use client'; 
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react'; 
 import styles from './admin.module.css'; 
 import UploadProductForm from '../components/UploadProductForm';
 
@@ -7,6 +7,19 @@ export default function AdminPage() {
   const [users, setUsers] = useState([]);
   const [orders, setOrders] = useState([]); // Состояние для заказов
   const [selectedOrder, setSelectedOrder] = useState(null); // Состояние для выбранного заказа
+  const [password, setPassword] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Состояние для проверки авторизации
+  const [error, setError] = useState('');
+  
+  // Функция для обработки входа с паролем
+  const handleLogin = (e) => {
+    e.preventDefault();
+    if (password === 'admin') { // Замените на свой пароль
+      setIsLoggedIn(true);
+    } else {
+      setError('Неверный пароль');
+    }
+  };
 
   // Загрузка пользователей
   useEffect(() => {
@@ -50,11 +63,11 @@ export default function AdminPage() {
       const response = await fetch(`/api/users/${id}`, { 
         method: 'POST',
       });
-  
+
       if (!response.ok) {
         throw new Error(`Ошибка верификации: ${response.status}`);
       }
-  
+
       const updatedUser = await response.json();
       setUsers((prevUsers) =>
         prevUsers.map((user) =>
@@ -74,6 +87,26 @@ export default function AdminPage() {
   // Закрыть модальное окно
   const closeOrderDetails = () => setSelectedOrder(null);
 
+  // Если не авторизован, показываем форму ввода пароля
+  if (!isLoggedIn) {
+    return (
+      <div className={styles.loginContainer}>
+        <h2>Введите пароль для доступа в админку</h2>
+        <form onSubmit={handleLogin}>
+          <input 
+            type="password" 
+            value={password} 
+            onChange={(e) => setPassword(e.target.value)} 
+            placeholder="Пароль" 
+          />
+          <button type="submit">Войти</button>
+        </form>
+        {error && <p className={styles.error}>{error}</p>}
+      </div>
+    );
+  }
+
+  // Если пользователь авторизован, показываем основной контент
   return (
     <div className={styles.adminContainer}>
       <h1 className={styles.header}>Админка</h1>
@@ -173,8 +206,6 @@ export default function AdminPage() {
           </div>
         </div>
       )}
-
-
     </div>
   );
 }

@@ -2,13 +2,17 @@
 
 import { useSearchParams } from 'next/navigation'; // Хук для получения параметров поиска
 import { useState, useEffect } from 'react'; // Импортируем useState и useEffect
+import styles from './allProducts.module.css'
 
 import ProductCard from '../components/ProductCard';
-
+import Cookies from 'js-cookie'; // Импортируем библиотеку для работы с cookies
 export default function ProductsPage() {
   const searchParams = useSearchParams(); // Хук для получения параметров поиска
   const category = searchParams.get('category'); // Получаем значение параметра category
 
+  const [isLoggedIn, setLoggedIn] = useState(false)
+  const token = Cookies.get('auth_token');
+  
   const [products, setProducts] = useState([]); // Состояние для хранения продуктов
 
   useEffect(() => {
@@ -22,6 +26,16 @@ export default function ProductsPage() {
       fetchProducts(); // Загружаем товары для выбранной категории
     }
   }, [category]); // Эффект срабатывает, когда изменяется категория
+
+
+  if (!token){
+    return(
+      <div className={styles.PleaseSign}>
+        Пожалуйста, авторизуйтесь, чтобы увидеть товары
+      </div>
+    )
+  }
+
 
   return (
     <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>

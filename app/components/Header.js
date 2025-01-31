@@ -6,6 +6,7 @@ import { useState, useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation'; // Импортируем usePathname
 import { useCart } from './CartContext';
 import { setCookie } from 'cookies-next'; // библиотека для работы с cookies
+import Cookies from 'js-cookie'; // Импортируем библиотеку для работы с cookies
 
 const Header = () => {
     const pathname = usePathname(); // Получаем текущий маршрут
@@ -20,7 +21,15 @@ const Header = () => {
     const { cart, totalCost } = useCart();
 
     const modalRef = useRef(null); // Создаём реф для модального окна
-
+    const token = Cookies.get('auth_token');
+    useEffect(() => {
+        if (token) {
+            setIsLoggedIn(true);
+        } else {
+            setIsLoggedIn(false);
+        }
+    }, [token]); // Эффект будет срабатывать при изменении token
+    
     const handleSearch = async (e) => {
         e.preventDefault();
         try {
